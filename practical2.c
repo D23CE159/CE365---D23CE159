@@ -7,13 +7,14 @@
 
 int main()
 {
-    int transitions[MAX_STATES][MAX_SYMBOLS];
-    int num_states, num_symbols;
-    int initial_state;
-    int accepting_states[MAX_STATES], num_accepting_states;
-    char symbols[MAX_SYMBOLS];
-    char input_string[100];
+    int transitions[MAX_STATES][MAX_SYMBOLS];               // Transition table
+    int num_states, num_symbols;                            // Number of states and symbols
+    int initial_state;                                      // Initial state of the automaton
+    int accepting_states[MAX_STATES], num_accepting_states; // Accepting states and their count
+    char symbols[MAX_SYMBOLS];                              // Input symbols
+    char input_string[100];                                 // Input string to validate
 
+    // Input the number of symbols and their respective characters
     printf("Enter number of input symbols: ");
     scanf("%d", &num_symbols);
 
@@ -23,12 +24,15 @@ int main()
         scanf(" %c", &symbols[i]);
     }
 
+    // Input the number of states in the automaton
     printf("Enter number of states: ");
     scanf("%d", &num_states);
 
+    // Input the initial state of the automaton
     printf("Enter initial state: ");
     scanf("%d", &initial_state);
 
+    // Input the number of accepting states and their values
     printf("Enter  number of accepting states: ");
     scanf("%d", &num_accepting_states);
 
@@ -38,6 +42,7 @@ int main()
         scanf("%d", &accepting_states[i]);
     }
 
+    // Input the transition table for each state and symbol
     printf("Enter transition table:\n");
     for (int i = 0; i < num_states; i++)
     {
@@ -48,15 +53,18 @@ int main()
         }
     }
 
+    // Input the string to be validated
     printf("Enter input string: ");
     scanf("%s", input_string);
 
     int current_state = initial_state;
+    // Process each character in the input string
     for (int i = 0; input_string[i] != '\0'; i++)
     {
         char symbol = input_string[i];
         int symbol_index = -1;
 
+        // Find the index of the current symbol in the input symbols
         for (int j = 0; j < num_symbols; j++)
         {
             if (symbols[j] == symbol)
@@ -66,15 +74,18 @@ int main()
             }
         }
 
+        // If the symbol is invalid, terminate and output an error
         if (symbol_index == -1)
         {
             printf("Invalid string\n");
             return 0;
         }
 
+        // Update the current state based on the transition table
         current_state = transitions[current_state - 1][symbol_index];
     }
 
+    // Check if the current state is an accepting state
     for (int i = 0; i < num_accepting_states; i++)
     {
         if (accepting_states[i] == current_state)
@@ -84,6 +95,7 @@ int main()
         }
     }
 
+    // If no accepting state is reached, the string is invalid
     printf("Invalid string\n");
 
     return 0;
