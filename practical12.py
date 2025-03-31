@@ -40,3 +40,5 @@ expressions = [
 for expr in expressions:
     print(f"Original: {expr}")
     print(f"Optimized: {optimize_expression(expr)}\n")
+
+print("Hello!")
